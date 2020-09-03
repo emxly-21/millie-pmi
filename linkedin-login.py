@@ -1,7 +1,7 @@
 from selenium import webdriver
 from credentials import CREDENTIALS
 
-driver = webdriver.Chrome('/Users/em/Downloads/chromedriver')
+driver = webdriver.Chrome('<PATH TO CHROMEDRIVER>')
 driver.get('https://www.linkedin.com')
 
 username = driver.find_element_by_id('session_key')
