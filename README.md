@@ -5,5 +5,5 @@ Make sure you have Python 3 and Google Chrome installed. Also please install Sel
 ## Setup
 1. Clone this repository by typing `git clone https://github.com/emxly-21/millie-pmi.git` into your terminal.
 2. Open the `credentials.py` file, and enter your LinkedIn user ID and password.
-3. Navigate to where you downloaded ChromeDriver, and copy the path. Paste that into `linkedin-login.py` where the code says `driver = webdriver.Chrome('<PATH TO CHROMEDRIVER>')`.
-4. Run `linkedin-login.py`. A dummy Chrome browser should open and log you into LinkedIn. Currently, the code is written to handle two-factor authentication via SMS. When you receive your verification code, enter it in your IDE, NOT in the browser. You should now be successfully logged in to LinkedIn. Do NOT close the dummy Chrome browser.
+3. Navigate to where you downloaded ChromeDriver, and copy the path. Paste that into `linkedin-login.py` where the code says `driver = webdriver.Chrome('<INSERT PATH TO CHROMEDRIVER>')`.
+4. Run `linkedin-login.py`. A dummy Chrome browser should open and log you into LinkedIn. If you have two-factor authentication via SMS enabled, enter your verification code into your IDE when prompted, NOT in the browser (as you would when you normally log in). This code cannot yet handle two-factor authentication using an authenticator app. After successfully logging in to LinkedIn, do NOT close the dummy Chrome browser.
