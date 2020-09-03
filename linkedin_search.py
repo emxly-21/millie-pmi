@@ -23,6 +23,7 @@ def attach_to_session(executor_url, session_id):
     WebDriver.execute = original_execute
     return driver
 
+# TODO: deal with international high schools
 def search(url):
     f = open("session.txt", "r")
     executor = f.readline().strip('\n')
@@ -71,3 +72,5 @@ def search(url):
     print("University:\t\t\t\t\t", university)
     print("Undergrad Graduation Year:\t", grad_yr)
     print("Years of Experience:\t\t", str(yrs_experience))
+
+    return university, grad_yr, yrs_experience
