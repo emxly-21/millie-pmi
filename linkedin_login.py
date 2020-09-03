@@ -1,7 +1,7 @@
 from selenium import webdriver
 from credentials import CREDENTIALS
 
-driver = webdriver.Chrome('<PATH TO CHROMEDRIVER>')
+driver = webdriver.Chrome('<INSERT PATH TO CHROMEDRIVER>')
 driver.get('https://www.linkedin.com')
 
 username = driver.find_element_by_id('session_key')
@@ -11,11 +11,14 @@ password.send_keys(CREDENTIALS['PASSWORD'])
 login_button = driver.find_element_by_class_name('sign-in-form__submit-button')
 login_button.click()
 
-code = input("Verification code:\t")
-verify = driver.find_element_by_id('input__phone_verification_pin')
-verify.send_keys(code)
-confirm_button = driver.find_element_by_id('two-step-submit-button')
-confirm_button.click()
+try:
+    verify = driver.find_element_by_id('input__phone_verification_pin')
+    code = input("Verification code:\t")
+    verify.send_keys(code)
+    confirm_button = driver.find_element_by_id('two-step-submit-button')
+    confirm_button.click()
+except:
+    pass
 
 session_url = driver.command_executor._url
 session_id = driver.session_id
