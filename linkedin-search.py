@@ -23,51 +23,51 @@ def attach_to_session(executor_url, session_id):
     WebDriver.execute = original_execute
     return driver
 
-f = open("session.txt", "r")
-executor = f.readline().strip('\n')
-session_id = f.readline()
-f.close()
+def search(url):
+    f = open("session.txt", "r")
+    executor = f.readline().strip('\n')
+    session_id = f.readline()
+    f.close()
 
-driver = attach_to_session(executor, session_id)
+    driver = attach_to_session(executor, session_id)
 
-# goes to the LinkedIn profile to be searched
-url = "<INSERT URL HERE>"
-driver.get(url)
+    # goes to the LinkedIn profile to be searched
+    driver.get(url)
 
-university = ''
-grad_yr = ''
-yrs_experience = 0
-high_school = ''
-last_grad = 0
+    university = ''
+    grad_yr = ''
+    yrs_experience = 0
+    high_school = ''
+    last_grad = 0
 
-html = driver.page_source
-#time.sleep(2)
+    html = driver.page_source
+    #time.sleep(2)
 
-education = [m.start() for m in re.finditer('com.linkedin.voyager.dash.deco.identity.profile.FullProfileEducation"]', html)]
-education.insert(0, 0)
+    education = [m.start() for m in re.finditer('com.linkedin.voyager.dash.deco.identity.profile.FullProfileEducation"]', html)]
+    education.insert(0, 0)
 
-for x in range(1, len(education)):
-    start = html.rindex('{"dateRange":{', education[x-1], education[x])
-    degree_start = html.index('"degreeName":', start)
-    if html[degree_start+13:degree_start+17] == "null":
-        degree_name = "N/A"
-    else:
-        degree_name = html[degree_start+14:html.index('",', degree_start)]
-    grad_start = html.index('"end":{"year":', start)
-    grad = int(html[grad_start+14:html.index(',"', grad_start)])
-    school_start = html.index('"schoolName":', start)
-    school_name = html[school_start+14:html.index('",', school_start)]
-    print(", ".join([school_name, degree_name, str(grad)]))
-    print()
-    if "Bachelor" in degree_name:
-        university = school_name
-        grad_yr = grad
-    if grad > last_grad and grad <= CURR_YR:
-        last_grad = grad
+    for x in range(1, len(education)):
+        start = html.rindex('{"dateRange":{', education[x-1], education[x])
+        degree_start = html.index('"degreeName":', start)
+        if html[degree_start+13:degree_start+17] == "null":
+            degree_name = "N/A"
+        else:
+            degree_name = html[degree_start+14:html.index('",', degree_start)]
+        grad_start = html.index('"end":{"year":', start)
+        grad = int(html[grad_start+14:html.index(',"', grad_start)])
+        school_start = html.index('"schoolName":', start)
+        school_name = html[school_start+14:html.index('",', school_start)]
+        print(", ".join([school_name, degree_name, str(grad)]))
+        print()
+        if "Bachelor" in degree_name:
+            university = school_name
+            grad_yr = grad
+        if grad > last_grad and grad <= CURR_YR:
+            last_grad = grad
 
-if last_grad > 0:
-    yrs_experience = CURR_YR - last_grad
+    if last_grad > 0:
+        yrs_experience = CURR_YR - last_grad
 
-print("University:\t\t\t\t\t", university)
-print("Undergrad Graduation Year:\t", grad_yr)
-print("Years of Experience:\t\t", str(yrs_experience))
+    print("University:\t\t\t\t\t", university)
+    print("Undergrad Graduation Year:\t", grad_yr)
+    print("Years of Experience:\t\t", str(yrs_experience))
