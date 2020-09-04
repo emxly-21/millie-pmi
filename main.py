@@ -18,7 +18,7 @@ anything = f.readline().strip('\n')
 f.close()
 
 print("INFORMATION OBTAINED FROM LINKEDIN")
-university, grad_yr, yrs_experience = search(linkedIn)
+university, grad_yr, yrs_experience, high_school = search(linkedIn)
 
 print()
 print("=========================== SUMMARY ===========================")
@@ -33,3 +33,4 @@ print("Anything Else:\t\t\t\t", anything)
 print("University:\t\t\t\t\t", university)
 print("Undergrad Graduation Year:\t", grad_yr)
 print("Years of Experience:\t\t", yrs_experience)
+print("International High School?\t", high_school)
