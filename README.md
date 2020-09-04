@@ -1,4 +1,7 @@
 # millie-pmi
+## Overview
+A Proactive Mentor Intaker (PMI) for Millie's Tech & Product Internship. Running `main.py` creates a Tkinter GUI to take in and store information, which is then used to access and scrape a LinkedIn profile for data using Selenium.
+
 ## Required Installations
 Make sure you have Python 3 and Google Chrome installed. Also please install Selenium (`pip install selenium`) and ChromeDriver (see [this page](https://sites.google.com/a/chromium.org/chromedriver/downloads) for installation instructions).
 
