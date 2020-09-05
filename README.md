@@ -10,7 +10,7 @@ Make sure you have Python 3 and Google Chrome installed. Also please install Sel
 2. Open the `credentials.py` file, and enter your LinkedIn user ID and password.
 3. Navigate to where you downloaded ChromeDriver, and copy the path. Paste that into `linkedin-login.py` where the code says `driver = webdriver.Chrome('<INSERT PATH TO CHROMEDRIVER>')`.
 4. Run `linkedin-login.py`. A dummy Chrome browser should open and log you into LinkedIn.
-    * If you have two-factor authentication via SMS enabled, enter your verification code into your IDE when prompted, NOT in the browser (as you would when you normally log in). This code cannot yet handle two-factor authentication using an authenticator app.
+    * If you have two-factor authentication via SMS enabled, enter your verification code into your terminal/IDE when prompted, NOT in the browser (as you would when you normally log in). This code cannot yet handle two-factor authentication using an authenticator app.
     * After successfully logging in to LinkedIn, a new file called `session.txt` will be created. Do NOT close the dummy Chrome browser, or you will need to run `linkedin-login.py` again.
   
 ## Running
