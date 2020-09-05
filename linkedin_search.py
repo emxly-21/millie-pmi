@@ -42,13 +42,10 @@ def search(url):
     last_grad = 0
 
     html = driver.page_source
-    #time.sleep(2)
 
     education = [m.start() for m in re.finditer('com.linkedin.voyager.dash.deco.identity.profile.FullProfileEducation"]', html)]
     education.insert(0, 0)
     education.append(len(html))
-    print("education", education)
-    print(html.index('"end":{"month":'))
 
     for x in range(1, len(education)-1):
         start = html.rindex('{"dateRange":{', education[x-1], education[x])
@@ -81,7 +78,7 @@ def search(url):
             last_grad = grad
 
         if "High School" in school_name or "High School" in degree_name:
-            if any(element in html[start:end] for element in high_school):
+            if any(element in html[start:end] for element in international):
                 high_school = 'Y'
 
     if last_grad > 0:

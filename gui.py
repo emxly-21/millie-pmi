@@ -1,6 +1,5 @@
 from tkinter import *
 
-#variables = ["First Name", "Last Name", "Email", "LinkedIn", "3 areas you feel comfortable sharing your expertise in", "Anything else you want to share"]
 variables = ["First Name", "Last Name", "Email", "LinkedIn"]
 
 class Application(Frame):
@@ -55,13 +54,3 @@ class Application(Frame):
         r += 1
 
         submit = Button(text="Submit", command=self.save).grid(row=r, columnspan=2)
-
-        # self.firstName = Label(text="First Name").grid(row=0, column=0)
-        # self.firstNameBox = Entry().grid(row=0, column=1)
-        # self.firstNameText = StringVar()
-        # self.firstNameBox["textvariable"] = self.firstNameText
-        #
-        # self.lastName = Label(text="Last Name").grid(row=1, column=0)
-        # self.lastNameBox = Entry().grid(row=1, column=1)
-        # self.lastNameText = StringVar()
-        # self.lastNameBox["textvariable"] = self.lastNameText

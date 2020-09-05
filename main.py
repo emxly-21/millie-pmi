@@ -1,6 +1,7 @@
 from gui import Application
 from linkedin_search import search
 import tkinter as tk
+import csv
 
 root = tk.Tk()
 app = Application(master=root)
@@ -34,3 +35,8 @@ print("University:\t\t\t\t\t", university)
 print("Undergrad Graduation Year:\t", grad_yr)
 print("Years of Experience:\t\t", yrs_experience)
 print("International High School?\t", high_school)
+
+database = open("database.csv", "a", newline='')
+writer = csv.writer(database)
+writer.writerows([[firstName, lastName, email, linkedIn, university, str(grad_yr), str(yrs_experience), high_school, area1, area2, area3, anything]])
+database.close()
