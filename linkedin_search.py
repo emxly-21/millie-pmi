@@ -3,7 +3,7 @@ from selenium.webdriver.remote.webdriver import WebDriver
 import re
 
 CURR_YR = 2020
-international = ["International Baccalaureate", "IBDP", "IB Score", "A Level", "French Baccalaureate"]
+international = ["International Baccalaureate", "IBDP", "IB", "IB Score", "A Level", "French Baccalaureate"]
 
 # reattaches the Web Driver so that the user does not need to log in again
 # code from Stack Overflow
@@ -35,8 +35,8 @@ def search(url):
     # goes to the LinkedIn profile to be searched
     driver.get(url)
 
-    university = ''
-    grad_yr = ''
+    university = []
+    grad_yr = []
     yrs_experience = 0
     high_school = 'N'
     last_grad = 0
@@ -48,14 +48,15 @@ def search(url):
     education.append(len(html))
 
     for x in range(1, len(education)-1):
-        start = html.rindex('{"dateRange":{', education[x-1], education[x])
-        end = education[x+1]
+        start = html.rindex('{"dateRange":', education[x-1], education[x])
+        end = html.index('},{', education[x], education[x+1])
 
-        degree_start = html.index('"degreeName":', start, end)
-        if html[degree_start+13:degree_start+17] == "null":
-            degree_name = "N/A"
-        else:
-            degree_name = html[degree_start+14:html.index('",', degree_start, end)]
+        if "degreeName" in html[start:end]:
+            degree_start = html.index('"degreeName":', start, end)
+            if html[degree_start+13:degree_start+17] == "null":
+                degree_name = "N/A"
+            else:
+                degree_name = html[degree_start+14:html.index('",', degree_start, end)]
 
         if '"end":{"year":' in html[start:end]:
             grad_start = html.index('"end":{"year":', start, end)
@@ -63,6 +64,8 @@ def search(url):
         elif '"end":{"month":' in html[start:end]:
             grad_start = html.index('"year":', html.index('"end":{"month"'), end)
             grad = int(html[grad_start+7:html.index(',"', grad_start, end)])
+        else:
+            grad = "N/A"
 
         school_start = html.index('"schoolName":', start, end)
         school_name = html[school_start+14:html.index('",', school_start, end)]
@@ -71,22 +74,25 @@ def search(url):
         print()
 
         if "Bachelor" in degree_name:
-            university = school_name
-            grad_yr = grad
+            university.append(school_name)
+            grad_yr.append(str(grad))
+
+        if grad == 'N/A':
+            grad = 0
 
         if grad > last_grad and grad <= CURR_YR:
             last_grad = grad
 
-        if "High School" in school_name or "High School" in degree_name:
+        if "High School" in school_name or "High School" in degree_name or any(element in degree_name for element in international):
             if any(element in html[start:end] for element in international):
                 high_school = 'Y'
 
-    if last_grad > 0:
+    if last_grad > 0 and len(grad_yr) > 0:
         yrs_experience = CURR_YR - last_grad
 
-    print("University:\t\t\t\t\t", university)
-    print("Undergrad Graduation Year:\t", grad_yr)
+    print("University:\t\t\t\t\t", ','.join(university))
+    print("Undergrad Graduation Year:\t", ','.join(grad_yr))
     print("Years of Experience:\t\t", str(yrs_experience))
     print("International High School?\t", high_school)
 
-    return university, grad_yr, yrs_experience, high_school
+    return ','.join(university), ','.join(grad_yr), yrs_experience, high_school
