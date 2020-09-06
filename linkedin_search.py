@@ -80,14 +80,14 @@ def search(url):
         if grad == 'N/A':
             grad = 0
 
-        if grad > last_grad and grad <= CURR_YR:
+        if grad > last_grad:
             last_grad = grad
 
         if "High School" in school_name or "High School" in degree_name or any(element in degree_name for element in international):
             if any(element in html[start:end] for element in international):
                 high_school = 'Y'
 
-    if last_grad > 0 and len(grad_yr) > 0:
+    if last_grad > 0 and last_grad <= CURR_YR and len(grad_yr) > 0:
         yrs_experience = CURR_YR - last_grad
 
     print("University:\t\t\t\t\t", ','.join(university))
